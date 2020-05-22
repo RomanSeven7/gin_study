@@ -1,14 +1,7 @@
-# gin_study
-
-## gin简单的router 启动一个http服务
-
-### 基本的router 注册
-
-```go
-
 package main
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -16,7 +9,7 @@ import (
 
 func helloHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
-		"message": "Hello q1mi!",
+		"message": "Hello Xiong Server!",
 	})
 }
 
@@ -27,9 +20,3 @@ func main() {
 		fmt.Println("startup service failed, err:%v\n", err)
 	}
 }
-```
-
-优点：
-
-适用于路由条目比较少的简单项目或者项目demo。
-
