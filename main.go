@@ -2,20 +2,14 @@ package main
 
 import (
 	"fmt"
-	"net/http"
-
 	"github.com/gin-gonic/gin"
+	"mfx/gin_study/routers"
 )
-
-func helloHandler(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"message": "Hello Xiong Server!",
-	})
-}
 
 func main() {
 	r := gin.Default()
-	r.GET("/hello", helloHandler)
+	routers.LoadOrder(r) // 加载order 模块的router
+	routers.LoadUser(r) // 加载 user 模块的路由
 	if err := r.Run(); err != nil {
 		fmt.Println("startup service failed, err:%v\n", err)
 	}

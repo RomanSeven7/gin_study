@@ -1,2 +1,201 @@
 # gin的使用
 
+## gin简单的router 启动一个http服务
+
+### 基本的router 注册
+
+```go
+package main
+
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
+
+func helloHandler(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Hello q1mi!",
+	})
+}
+
+func main() {
+	r := gin.Default()
+	r.GET("/hello", helloHandler)
+	if err := r.Run(); err != nil {
+		fmt.Println("startup service failed, err:%v\n", err)
+	}
+}
+```
+
+优点：
+
+适用于路由条目比较少的简单项目或者项目demo。
+
+### 路由拆分成单独文件或者包
+
+
+
+当项目的规模增大后就不太适合继续在项目的`main.go`文件中去实现路由注册相关逻辑了，我们会倾向于把路由部分的代码都拆分出来，形成一个单独的文件或包：
+
+我们在`routers.go`文件中定义并注册路由信息：
+
+```go
+package main
+
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
+
+func helloHandler(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Hello q1mi!",
+	})
+}
+
+func setupRouter() *gin.Engine {
+	r := gin.Default()
+	r.GET("/hello", helloHandler)
+	return r
+```
+
+此时`main.go`中调用上面定义好的`setupRouter`函数：
+
+```go
+func main() {
+	r := setupRouter()
+	if err := r.Run(); err != nil {
+		fmt.Println("startup service failed, err:%v\n", err)
+	}
+}
+
+```
+
+此时的目录结构：
+
+```
+gin_demo
+├── go.mod
+├── go.sum
+├── main.go
+└── routers.go
+```
+
+把路由部分的代码单独拆分成包的话也是可以的，拆分后的目录结构如下：
+
+```
+gin_demo
+├── go.mod
+├── go.sum
+├── main.go
+└── routers
+    └── routers.go
+```
+
+`routers/routers.go`需要注意此时`setupRouter`需要改成首字母大写：
+
+```go
+package routers
+
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
+
+func helloHandler(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Hello q1mi!",
+	})
+}
+
+// SetupRouter 配置路由信息
+func SetupRouter() *gin.Engine {
+	r := gin.Default()
+	r.GET("/hello", helloHandler)
+	return r
+}
+```
+
+`main.go`文件内容如下：
+
+```go
+package main
+
+import (
+	"fmt"
+	"gin_demo/routers"
+)
+
+func main() {
+	r := routers.SetupRouter()
+	if err := r.Run(); err != nil {
+		fmt.Println("startup service failed, err:%v\n", err)
+	}
+}
+```
+
+### 路由拆分成多个文件
+
+当我们的业务规模继续膨胀，单独的一个`routers`文件或包已经满足不了我们的需求了，
+
+```go
+func SetupRouter() *gin.Engine {
+	r := gin.Default()
+	r.GET("/hello", helloHandler)
+  r.GET("/xx1", xxHandler1)
+  ...
+  r.GET("/xx30", xxHandler30)
+	return r
+}
+```
+
+因为我们把所有的路由注册都写在一个`SetupRouter`函数中的话就会太复杂了。
+
+我们可以分开定义多个路由文件，例如：
+
+```bash
+gin_demo
+├── go.mod
+├── go.sum
+├── main.go
+└── routers
+    ├── blog.go
+    └── shop.go
+```
+
+`routers/shop.go`中添加一个`LoadShop`的函数，将shop相关的路由注册到指定的路由器：
+
+```go
+func LoadShop(e *gin.Engine)  {
+	e.GET("/hello", helloHandler)
+  e.GET("/goods", goodsHandler)
+  e.GET("/checkout", checkoutHandler)
+  ...
+}
+```
+
+`routers/blog.go`中添加一个`LoadBlog的函数，将blog相关的路由注册到指定的路由器：
+
+```go
+func LoadBlog(e *gin.Engine) {
+	e.GET("/post", postHandler)
+  e.GET("/comment", commentHandler)
+  ...
+}
+```
+
+在main函数中实现最终的注册逻辑如下：
+
+```go
+func main() {
+	r := gin.Default()
+	routers.LoadBlog(r)
+	routers.LoadShop(r)
+	if err := r.Run(); err != nil {
+		fmt.Println("startup service failed, err:%v\n", err)
+	}
+}
+```
