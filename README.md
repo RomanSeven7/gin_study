@@ -8,3 +8,9 @@ doc/init
 ```
 doc/router
 ```
+
+### gin 读取配置文件
+
+```
+doc/config
+```
