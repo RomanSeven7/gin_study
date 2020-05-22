@@ -1,4 +1,4 @@
-package main
+package test
 
 import (
 	"bytes"
@@ -6,14 +6,13 @@ import (
 	"github.com/gobuffalo/packr/v2"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
-	"mfx/gin_study/app/order"
-	"mfx/gin_study/app/user"
-	"mfx/gin_study/routers"
+	"github.com/stretchr/testify/assert"
 	"os"
+	"testing"
 )
 
 func initConfig() (err error) {
-	box := packr.New("config", "./conf")
+	box := packr.New("config", "../conf")
 	configType := "yml"
 	defaultConfig, _ := box.Find("default.yml")
 	v := viper.New()
@@ -31,27 +30,26 @@ func initConfig() (err error) {
 	// 根据配置的env读取相应的配置信息
 	if env != "" {
 		envConfig, _ := box.Find(env + ".yml")
+
 		viper.SetConfigType(configType)
 		err = viper.ReadConfig(bytes.NewReader(envConfig))
 		if err != nil {
 			return
 		}
 	}
+	fmt.Sprintln()
 	return
 }
 
-func main() {
+func TestLoadConf(t *testing.T) {
+	// todo export $GO_ENV=production
 	pflag.Parse()
 	viper.BindPFlags(pflag.CommandLine)
 	err := initConfig()
 	if err != nil {
 		panic(err)
 	}
-	// 加载多个app的路由配置
-	routers.Include(order.Routers, user.Routers)
-	// 初始化路由
-	r := routers.Init()
-	if err := r.Run(); err != nil {
-		fmt.Println("startup service failed, err:%v\n", err)
-	}
+	assert.Equal(t, int64(100), viper.GetInt64("db.poolSize"))
+	assert.Equal(t, int64(700), viper.GetInt64("num"))
+
 }
