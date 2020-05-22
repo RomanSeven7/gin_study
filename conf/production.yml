@@ -1,0 +1,5 @@
+# production
+app: viper-test
+db:
+  uri: postgres://tree:mypwd@10.1.1.1:5432/viper?connect_timeout=5&sslmode=production
+  poolSize: 100
