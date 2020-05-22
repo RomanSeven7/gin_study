@@ -2,14 +2,16 @@ package main
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
+	"mfx/gin_study/app/order"
+	"mfx/gin_study/app/user"
 	"mfx/gin_study/routers"
 )
 
 func main() {
-	r := gin.Default()
-	routers.LoadOrder(r) // 加载order 模块的router
-	routers.LoadUser(r) // 加载 user 模块的路由
+	// 加载多个app的路由配置
+	routers.Include(order.Routers,user.Routers)
+	// 初始化路由
+	r:=routers.Init()
 	if err := r.Run(); err != nil {
 		fmt.Println("startup service failed, err:%v\n", err)
 	}
