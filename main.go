@@ -8,6 +8,7 @@ import (
 	"github.com/spf13/viper"
 	"mfx/gin_study/app/order"
 	"mfx/gin_study/app/user"
+	_ "mfx/gin_study/docs"
 	"mfx/gin_study/routers"
 	"os"
 )
@@ -29,7 +30,7 @@ func initConfig() (err error) {
 	}
 	env := os.Getenv("GO_ENV")
 	// 根据配置的env读取相应的配置信息
-	if env != "" {
+ 	if env != "" {
 		envConfig, _ := box.Find(env + ".yml")
 		viper.SetConfigType(configType)
 		err = viper.ReadConfig(bytes.NewReader(envConfig))
@@ -39,10 +40,21 @@ func initConfig() (err error) {
 	}
 	return
 }
+// @title Gin swagger
+// @version 1.0
+// @description Gin swagger 示例项目
 
+// @contact.name
+// @contact.url https://youngxhui.top
+// @contact.email youngxhui@g mail.com
+
+// @license.name Apache 2.0
+// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+
+// @host localhost:8080
 func main() {
 	pflag.Parse()
-	viper.BindPFlags(pflag.CommandLine)
+	_ = viper.BindPFlags(pflag.CommandLine)
 	err := initConfig()
 	if err != nil {
 		panic(err)

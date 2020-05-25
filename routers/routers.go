@@ -1,6 +1,11 @@
 package routers
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
+
+)
 
 type Option func(*gin.Engine)
 
@@ -17,5 +22,7 @@ func Init() *gin.Engine {
 	for _, opt := range options {
 		opt(r)
 	}
+	url := ginSwagger.URL("http://localhost:8080/swagger/doc.json")
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 	return r
 }

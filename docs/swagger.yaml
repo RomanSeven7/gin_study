@@ -1,0 +1,42 @@
+definitions:
+  model.Result:
+    properties:
+      code:
+        example: 0
+        type: integer
+      data:
+        type: object
+      message:
+        example: 请求信息
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: youngxhui@g mail.com
+    name: youngxhu
+    url: https://youngxhui.top
+  description: Gin swagger 示例项目
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Gin swagger
+  version: "1.0"
+paths:
+  /article/{id}:
+    get:
+      consumes:
+      - application/x-json-stream
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Result'
+      summary: 通过文章 id 获取单个文章内容
+swagger: "2.0"
