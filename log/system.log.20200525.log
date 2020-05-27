@@ -1,0 +1,4 @@
+{"client_ip":"::1","latency_time":66000,"level":"info","msg":"","req_method":"GET","req_uri":"/v1/order?id=1","status_code":200,"time":"2020-05-25 20:26:18"}
+{"client_ip":"::1","latency_time":25010,"level":"info","msg":"","req_method":"GET","req_uri":"/v1/order?id=1","status_code":200,"time":"2020-05-25 20:26:20"}
+{"client_ip":"::1","latency_time":9504387967,"level":"info","msg":"","req_method":"GET","req_uri":"/v1/order?id=1","status_code":200,"time":"2020-05-25 20:27:40"}
+{"client_ip":"::1","latency_time":46574277197,"level":"info","msg":"","req_method":"GET","req_uri":"/v1/order?id=1","status_code":200,"time":"2020-05-25 20:31:57"}
