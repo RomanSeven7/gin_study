@@ -9,5 +9,7 @@ func Routers(e *gin.Engine) {
 	{
 		order.GET("", LoadOrder)
 		order.POST("", CreateOrder)
+		// This handler will match /user/john but will not match /user/ or /user
+		order.GET("/:id", LoadOrderById)
 	}
 }

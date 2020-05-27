@@ -16,3 +16,9 @@ func CreateOrder(c *gin.Context) {
 		"message": "create order success",
 	})
 }
+
+// Parameters in pathsss
+func LoadOrderById(c *gin.Context) {
+	id:=c.Param("id")
+	c.String(http.StatusOK, "order id is %s", id)
+}
