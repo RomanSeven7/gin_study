@@ -5,9 +5,15 @@ import (
 )
 
 func Routers(e *gin.Engine) {
-	order := e.Group("/v1/user")
+	user := e.Group("/v1/user")
 	{
-		order.GET("", LoadUser)
-		order.POST("", CreateUser)
+		user.GET("", LoadUser)
+		// Querystring parameters
+		user.GET("/:id", LoadUserById)
+		user.POST("", CreateUser)
+		// will math /v1/user/  /v1/user/*
+		// c.FullPath() == "/v1/user/:name/*action"
+		user.POST("/:name/*action", LoadUserByName)
+
 	}
 }
