@@ -11,5 +11,7 @@ func Routers(e *gin.Engine) {
 		order.POST("", CreateOrder)
 		// This handler will match /user/john but will not match /user/ or /user
 		order.GET("/:id", LoadOrderById)
+		// load multipart/urlencoded Form
+		order.POST("/:id/:itemId", LoadOrderByIdAndItemId)
 	}
 }
