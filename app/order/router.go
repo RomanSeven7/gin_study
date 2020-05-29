@@ -13,5 +13,6 @@ func Routers(e *gin.Engine) {
 		order.GET("/:id", LoadOrderById)
 		// load multipart/urlencoded Form
 		order.POST("/:id/:itemId", LoadOrderByIdAndItemId)
+		order.PUT("/:id/", UpdateOrder)
 	}
 }
