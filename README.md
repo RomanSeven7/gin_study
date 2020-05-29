@@ -17,4 +17,5 @@ doc/config
 
 ### gin 读取请求参数
 ```
+doc/paramters
 ```
