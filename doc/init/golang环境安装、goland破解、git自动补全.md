@@ -7,7 +7,20 @@
 path中添加 C:\Go\bin<br>
 GOPATH设置 D:\godev 并创建src bin pkg三个目录<br>
 重新打开窗口 使用go env 命令 查看gopath 和goroot是否正确
+### 设置代理
+```shell script
 
+go env -w GOPROXY=https://goproxy.cn,direct
+```
+
+### 设置GOSUMDB
+如果在运行go mod vendor时，提示Get https://sum.golang.org/lookup/xxxxxx: 
+dial tcp 216.58.200.49:443: i/o timeout，
+则是因为Go 1.13设置了默认的GOSUMDB=sum.golang.org，
+这个网站是被墙了的，用于验证包的有效性，可以通过如下命令关闭：
+```shell script
+go env -w GOSUMDB=off
+```
 ## goland的破解
 goland打开 创建任意一个go文件,将百度网盘链接: https://pan.baidu.com/s/1e0s2lbpBn9v9CQiRyzZNZQ 提取码: vduk 的jetbrains-agent.jar
 文件直接拖入 IDEA 界面中，当然如果是其他IDE的话，也同理。 然后根据提示重启
