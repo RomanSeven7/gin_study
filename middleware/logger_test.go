@@ -1,18 +1,15 @@
-package log
+package middleware
 
 import (
-	"fmt"
-	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
 	"github.com/sirupsen/logrus"
 	"os"
 	"testing"
-	"time"
 )
 func init(){
 	logrus.SetFormatter(&logrus.TextFormatter{})
 	//logrus.SetReportCaller(true)
 	logrus.SetOutput(os.Stderr)
-	logrus.SetLevel(logrus.DebugLevel)
+	logrus.SetLevel(logrus.InfoLevel)
 	rotateFileHook, _ := NewRotateFileHook(*Generate(logrus.DebugLevel))
 	rotateFileHook2, _ := NewRotateFileHook(*Generate(logrus.InfoLevel))
 	rotateFileHook3, _ := NewRotateFileHook(*Generate(logrus.WarnLevel))
@@ -35,21 +32,3 @@ func TestPrint(t *testing.T) {
 
 }
 
-func Generate(level logrus.Level)*RotateFileConfig{
-	 rotateFileConfig:=  RotateFileConfig{
-		Filename: fmt.Sprintf("./log/%s-%s.log",level.String(),time.Now().Format(time.RFC3339)),
-		MaxSize: 10,
-		MaxBackups: 10,
-		MaxAge: 7,
-		Level: level,
-		Formatter: &logrus.JSONFormatter{},
-	}
-	writer, _ := rotatelogs.New(
-		rotateFileConfig.Filename+".%Y-%m-%d-%H-%M",
-		rotatelogs.WithLinkName(rotateFileConfig.Filename),
-		rotatelogs.WithMaxAge(time.Duration(2)*time.Hour),
-		rotatelogs.WithRotationTime(time.Duration(5)*time.Second),
-	)
-	logrus.SetOutput(writer)
-	return &rotateFileConfig
-}

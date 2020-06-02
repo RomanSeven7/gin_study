@@ -2,7 +2,7 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
-	"mfx/gin_study/middleware/log"
+	"mfx/gin_study/middleware"
 )
 
 type Option func(*gin.Engine)
@@ -17,7 +17,7 @@ func Include(opts ...Option) {
 // 初始化
 func Init() *gin.Engine {
 	r := gin.New()
-	r.Use(log.LogerMiddleware())
+	r.Use(middleware.LogerMiddleware())
 	for _, opt := range options {
 		opt(r)
 	}

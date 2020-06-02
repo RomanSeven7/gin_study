@@ -1,4 +1,4 @@
-package log
+package middleware
 
 import (
 	"github.com/sirupsen/logrus"
