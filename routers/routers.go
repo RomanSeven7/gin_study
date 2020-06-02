@@ -2,8 +2,9 @@ package routers
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"time"
+	"github.com/gin-gonic/gin"
+	"mfx/gin_study/middleware"
 )
 
 type Option func(*gin.Engine)
@@ -21,7 +22,6 @@ func Init() *gin.Engine {
 	// LoggerWithFormatter middleware will write the logs to gin.DefaultWriter
 	// By default gin.DefaultWriter = os.Stdout
 	r.Use(gin.LoggerWithFormatter(func(param gin.LogFormatterParams) string {
-
 		// your custom format
 		return fmt.Sprintf("%s - [%s] \"%s %s %s %d %s \"%s\" %s\"\n",
 			param.Request.RemoteAddr,
@@ -37,7 +37,7 @@ func Init() *gin.Engine {
 		)
 	}))
 	r.Use(gin.Recovery())
-
+	r.Use(middleware.LogerMiddleware())
 	for _, opt := range options {
 		opt(r)
 	}

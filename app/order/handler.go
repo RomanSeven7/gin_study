@@ -2,10 +2,13 @@ package order
 
 import (
 	"github.com/gin-gonic/gin"
+	log "github.com/sirupsen/logrus"
 	"net/http"
 )
 
 func LoadOrder(c *gin.Context) {
+	id := c.GetInt("id")
+	log.Debug(id)
 	c.JSON(http.StatusOK, gin.H{
 		"message": "load order success",
 	})
@@ -17,7 +20,7 @@ func CreateOrder(c *gin.Context) {
 	})
 }
 
-// Parameters in pathsss
+// Parameters in path
 func LoadOrderById(c *gin.Context) {
 	id := c.Param("id")
 	c.String(http.StatusOK, "order id is %s", id)

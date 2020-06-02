@@ -43,7 +43,7 @@ func initConfig() (err error) {
 
 func main() {
 	pflag.Parse()
-	viper.BindPFlags(pflag.CommandLine)
+	_ = viper.BindPFlags(pflag.CommandLine)
 
 	err := initConfig()
 	if err != nil {
@@ -53,8 +53,10 @@ func main() {
 	routers.Include(order.Routers, user.Routers)
 	// 初始化路由
 	r := routers.Init()
-	if err := r.Run(); err != nil {
-		fmt.Println("startup service failed, err:%v\n", err)
+	db:=model.Init()
+	defer db.Close()
+	if err := r.Run(":8089"); err != nil {
+		fmt.Printf("startup service failed, err:%v\n\n", err)
 	}
-	model.Init()
+
 }
