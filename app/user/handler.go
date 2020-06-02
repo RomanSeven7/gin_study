@@ -4,8 +4,10 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
+	"time"
 )
-
+var userService UserService
 func LoadUser(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "load user success",
@@ -29,8 +31,11 @@ func LoadUserById(c *gin.Context) {
 	})
 }
 func CreateUser(c *gin.Context) {
+	name:=c.Query("name")
+	age:=c.Query("age")
+	ageInt,_:=strconv.Atoi(age)
 	c.JSON(http.StatusOK, gin.H{
-		"message": "create user success",
+		"message": userService.Create(name,ageInt,time.Now()),
 	})
 }
 

@@ -24,7 +24,7 @@ curl -X GET \
 id:=c.Param("id")
 ```
 
-##  从paramters中获取
+##  从parameters中获取
 
 请求：
 

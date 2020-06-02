@@ -53,8 +53,8 @@ func main() {
 	routers.Include(order.Routers, user.Routers)
 	// 初始化路由
 	r := routers.Init()
-	db:=model.Init()
-	defer db.Close()
+	defer model.Db.Close()
+	model.Init()
 	if err := r.Run(":8089"); err != nil {
 		fmt.Printf("startup service failed, err:%v\n\n", err)
 	}
