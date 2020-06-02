@@ -8,6 +8,7 @@ import (
 	"github.com/spf13/viper"
 	"mfx/gin_study/app/order"
 	"mfx/gin_study/app/user"
+	"mfx/gin_study/model"
 	"mfx/gin_study/routers"
 	"os"
 )
@@ -43,6 +44,7 @@ func initConfig() (err error) {
 func main() {
 	pflag.Parse()
 	viper.BindPFlags(pflag.CommandLine)
+
 	err := initConfig()
 	if err != nil {
 		panic(err)
@@ -54,4 +56,5 @@ func main() {
 	if err := r.Run(); err != nil {
 		fmt.Println("startup service failed, err:%v\n", err)
 	}
+	model.Init()
 }

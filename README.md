@@ -19,3 +19,5 @@ doc/config
 ```
 doc/paramters
 ```
+
+### gin 连接数据库

@@ -1,1 +1,3 @@
 num: 700
+mysql:
+  url: root:Hua_xxx_111@tcp(10.48.1.125:3306)/gin_study
