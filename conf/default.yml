@@ -7,3 +7,15 @@ mysql:
   maxIdleConns: 2
 
 log:
+redis:
+  mode: cluster
+  conn: 10.49.1.106:6379
+  password:
+  conn_timeout: 2000
+  so_timeout: 4000
+  min_idle_conns: 10
+  max_retries: 3
+  sentinel:
+    master:
+
+
