@@ -10,7 +10,7 @@ import (
 )
 
 
-func LogerMiddleware() gin.HandlerFunc {
+func LoggerMiddleware() gin.HandlerFunc {
 	// 实例化
 	logger := logrus.New()
 	//设置日志级别

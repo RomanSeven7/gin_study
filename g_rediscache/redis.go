@@ -88,7 +88,7 @@ func BuildRedisClient() {
 	_, err := GetRedisClient().Ping().Result()
 
 	if err != nil {
-		logrus.Error("Redis Connection error. %s", err)
+		logrus.Error("Redis Connection error. :", err)
 		RedisClient = nil
 	}
 }

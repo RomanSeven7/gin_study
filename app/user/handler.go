@@ -3,6 +3,7 @@ package user
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 	"net/http"
 	"strconv"
 	"time"
@@ -16,19 +17,15 @@ func LoadUser(c *gin.Context) {
 
 func LoadUserById(c *gin.Context) {
 	id := c.Param("id")
-	firstName := c.DefaultQuery("firstname", "Guest")
-	lastname := c.Query("lastname") // shortcut for c.Request.URL.Query().Get("lastname")
-	c.JSON(http.StatusOK, gin.H{
-		"message": struct {
-			Id        string
-			FirstName string
-			LastName  string
-		}{
-			Id:        id,
-			FirstName: firstName,
-			LastName:  lastname,
-		},
-	})
+	if intId,err:=strconv.Atoi(id);err!=nil{
+		logrus.Error(err)
+		panic("translate err")
+	}else {
+		c.JSON(http.StatusOK, gin.H{
+			"message": userService.LoadById(int64(intId)),
+		})
+	}
+
 }
 func CreateUser(c *gin.Context) {
 	name:=c.Query("name")

@@ -1,6 +1,6 @@
 num: 700
 mysql:
-  uri: root:Hua_xxx_111@tcp(10.48.1.125:3306)/gin_study
+  uri: root:Hua_xxx_111@tcp(10.48.1.125:3306)/gin_study?parseTime=true
   # 设置连接池中的最大闲置连接数
   maxOpenConns: 20
   # 设置连接池中的最大闲置连接数

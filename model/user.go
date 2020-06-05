@@ -27,9 +27,9 @@ func (user *UserModel) Create() {
 	}
 }
 
-func (user *UserModel) LoadById() UserModel {
-	Db.Where("id = ?", user.ID).First(&user)
-	return *user
+func (user *UserModel) LoadById() (UserModel,error) {
+	err:=Db.Where("id = ?", user.ID).First(&user).Error
+	return *user,err
 }
 
 func (user *UserModel) LoadByName() UserModel {
