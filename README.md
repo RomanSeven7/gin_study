@@ -19,3 +19,12 @@ doc/config
 ```
 doc/paramters
 ```
+### gin 连接数据库
+```
+
+```
+
+### gin 连接redis
+```
+
+```

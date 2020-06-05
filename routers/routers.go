@@ -2,8 +2,9 @@ package routers
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"time"
+	"github.com/gin-gonic/gin"
+	"mfx/gin_study/middleware"
 )
 
 type Option func(*gin.Engine)
@@ -21,23 +22,22 @@ func Init() *gin.Engine {
 	// LoggerWithFormatter middleware will write the logs to gin.DefaultWriter
 	// By default gin.DefaultWriter = os.Stdout
 	r.Use(gin.LoggerWithFormatter(func(param gin.LogFormatterParams) string {
-
 		// your custom format
-		return fmt.Sprintf("%s - [%s] \"%s %s %s %d %s \"%s\" %s\"\n",
-			param.Request.RemoteAddr,
-			param.ClientIP,
-			param.TimeStamp.Format(time.RFC3339),
-			param.Method,
-			param.Path,
-			param.Request.Proto,
-			param.StatusCode,
-			param.Latency,
-			param.Request.UserAgent(),
-			param.ErrorMessage,
+		return fmt.Sprintf("%s - [%s] \"%s %s %s %s %d %s \"%s\" %s\"\n",
+			param.Request.RemoteAddr, // [::1]:63495
+			param.ClientIP, // [::1]
+			param.TimeStamp.Format(time.RFC3339), //"2020-06-05T22:15:30+08:00
+			param.Method, //GET
+			param.Path, //  /v1/user/6
+			param.Request.Proto, // =HTTP/1.1
+			param.StatusCode, // 200
+			param.Latency, // 5.24106793s
+			param.Request.UserAgent(), // PostmanRuntime/7.6.0
+			param.ErrorMessage, // ""
 		)
 	}))
 	r.Use(gin.Recovery())
-
+	r.Use(middleware.LoggerMiddleware())
 	for _, opt := range options {
 		opt(r)
 	}

@@ -13,7 +13,7 @@ func Routers(e *gin.Engine) {
 		user.POST("", CreateUser)
 		// will math /v1/user/  /v1/user/*
 		// c.FullPath() == "/v1/user/:name/*action"
-		user.POST("/:name/*action", LoadUserByName)
+		//user.POST("/:name/*action", LoadUserByName)
 
 	}
 }

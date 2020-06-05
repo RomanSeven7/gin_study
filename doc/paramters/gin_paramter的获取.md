@@ -24,7 +24,11 @@ curl -X GET \
 id:=c.Param("id")
 ```
 
+<<<<<<< HEAD
+##  从parameters中获取
+=======
 ##  从paramters中获取
+>>>>>>> master
 
 请求：
 
