@@ -13,7 +13,7 @@ func LoadUser(c *gin.Context) {
 }
 
 func LoadUserById(c *gin.Context) {
-	id:=c.Param("id")
+	id := c.Param("id")
 	firstName := c.DefaultQuery("firstname", "Guest")
 	lastname := c.Query("lastname") // shortcut for c.Request.URL.Query().Get("lastname")
 	c.JSON(http.StatusOK, gin.H{
@@ -36,7 +36,7 @@ func CreateUser(c *gin.Context) {
 }
 
 func LoadUserByName(c *gin.Context) {
-	res:= c.FullPath() == "/v1/user/:name/*action"
+	res := c.FullPath() == "/v1/user/:name/*action"
 	fmt.Sprintln(res) // true
 
 	name := c.Param("name")
@@ -46,4 +46,3 @@ func LoadUserByName(c *gin.Context) {
 		"message": message,
 	})
 }
-
