@@ -1,17 +1,12 @@
 package routers
 
 import (
-<<<<<<< HEAD
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-
-=======
 	"fmt"
 	"time"
-	"github.com/gin-gonic/gin"
 	"mfx/gin_study/middleware"
->>>>>>> master
 )
 
 type Option func(*gin.Engine)

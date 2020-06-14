@@ -32,7 +32,7 @@ func (t *BasicController) Ok(d interface{}) {
 	return
 }
 
-func Wrapper(handler func(c *gin.Context) error) (func(c *gin.Context)) {
+func Wrapper(handler func(c *gin.Context)) (func(c *gin.Context)) {
 	return func(c *gin.Context) {
 		var (
 			err error

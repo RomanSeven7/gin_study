@@ -1,20 +1,35 @@
 definitions:
-  model.Result:
+  model.UpdateUserResp:
     properties:
-      code:
-        example: 0
+      age:
+        description: 年龄
         type: integer
-      data:
-        type: object
-      message:
-        example: 请求信息
+      birthday:
+        description: 生日
+        type: string
+      id:
+        description: Id
+        type: integer
+      name:
+        description: 姓名
+        type: string
+    type: object
+  model.UserModel:
+    properties:
+      age:
+        description: 年龄
+        type: integer
+      birthday:
+        description: 生日
+        type: string
+      name:
+        description: 姓名
         type: string
     type: object
 host: localhost:8080
 info:
   contact:
     email: youngxhui@g mail.com
-    name: youngxhu
     url: https://youngxhui.top
   description: Gin swagger 示例项目
   license:
@@ -23,10 +38,46 @@ info:
   title: Gin swagger
   version: "1.0"
 paths:
-  /article/{id}:
+  /v1/users:
     get:
       consumes:
-      - application/x-json-stream
+      - application/x-www-form-urlencoded
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.UpdateUserResp'
+            type: array
+      summary: 获取所有用户
+      tags:
+      - 用户模块
+    post:
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - description: name
+        in: query
+        name: name
+        required: true
+        type: string
+      - description: age
+        in: query
+        name: age
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.UserModel'
+      summary: 创建用户
+      tags:
+      - 用户模块
+  /v1/users/{id}:
+    get:
+      consumes:
+      - application/x-www-form-urlencoded
       parameters:
       - description: id
         in: path
@@ -37,6 +88,33 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/model.Result'
-      summary: 通过文章 id 获取单个文章内容
+            $ref: '#/definitions/model.UserModel'
+      summary: 通过用户 id 获取用户信息
+      tags:
+      - 用户模块
+    put:
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: age
+        in: formData
+        name: age
+        type: integer
+      - description: name
+        in: formData
+        name: name
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.UpdateUserResp'
+      summary: 更新用户
+      tags:
+      - 用户模块
 swagger: "2.0"

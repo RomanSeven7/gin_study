@@ -8,17 +8,12 @@ import (
 func Routers(e *gin.Engine) {
 	order := e.Group("/v1/order")
 	{
-<<<<<<< HEAD
 		order.GET("", app.Wrapper(LoadOrder))
 		order.POST("", app.Wrapper(CreateOrder))
-=======
-		order.GET("", LoadOrder)
-		order.POST("", CreateOrder)
 		// This handler will match /user/john but will not match /user/ or /user
 		order.GET("/:id", LoadOrderById)
 		// load multipart/urlencoded Form
 		order.POST("/:id/:itemId", LoadOrderByIdAndItemId)
 		order.PUT("/:id/", UpdateOrder)
->>>>>>> master
 	}
 }

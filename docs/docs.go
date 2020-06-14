@@ -19,7 +19,6 @@ var doc = `{
         "description": "{{.Description}}",
         "title": "{{.Title}}",
         "contact": {
-            "name": "youngxhu",
             "url": "https://youngxhui.top",
             "email": "youngxhui@g mail.com"
         },
@@ -32,12 +31,70 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/article/{id}": {
+        "/v1/users": {
             "get": {
                 "consumes": [
-                    "application/x-json-stream"
+                    "application/x-www-form-urlencoded"
                 ],
-                "summary": "通过文章 id 获取单个文章内容",
+                "tags": [
+                    "用户模块"
+                ],
+                "summary": "获取所有用户",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.UpdateUserResp"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "tags": [
+                    "用户模块"
+                ],
+                "summary": "创建用户",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name",
+                        "name": "name",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "age",
+                        "name": "age",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.UserModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/users/{id}": {
+            "get": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "tags": [
+                    "用户模块"
+                ],
+                "summary": "通过用户 id 获取用户信息",
                 "parameters": [
                     {
                         "type": "integer",
@@ -51,7 +108,45 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/model.Result"
+                            "$ref": "#/definitions/model.UserModel"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "tags": [
+                    "用户模块"
+                ],
+                "summary": "更新用户",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "age",
+                        "name": "age",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "name",
+                        "name": "name",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateUserResp"
                         }
                     }
                 }
@@ -59,19 +154,41 @@ var doc = `{
         }
     },
     "definitions": {
-        "model.Result": {
+        "model.UpdateUserResp": {
             "type": "object",
             "properties": {
-                "code": {
-                    "type": "integer",
-                    "example": 0
+                "age": {
+                    "description": "年龄",
+                    "type": "integer"
                 },
-                "data": {
-                    "type": "object"
+                "birthday": {
+                    "description": "生日",
+                    "type": "string"
                 },
-                "message": {
-                    "type": "string",
-                    "example": "请求信息"
+                "id": {
+                    "description": "Id",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "姓名",
+                    "type": "string"
+                }
+            }
+        },
+        "model.UserModel": {
+            "type": "object",
+            "properties": {
+                "age": {
+                    "description": "年龄",
+                    "type": "integer"
+                },
+                "birthday": {
+                    "description": "生日",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "姓名",
+                    "type": "string"
                 }
             }
         }

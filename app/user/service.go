@@ -40,3 +40,21 @@ func (u *UserService) LoadById(uid int64) model.UserModel {
 	logrus.Info("isCache:	", isCache)
 	return val.(model.UserModel)
 }
+
+func (u *UserService) UpdateUserById(req model.UpdateUserReq) model.UpdateUserResp {
+
+	userModel := req.UpdateById()
+	_, _ = g_rediscache.RedisClient.Del(fmt.Sprintf("load_by_userId:%d", userModel.ID)).Result()
+	return model.UpdateUserResp{
+		ID:       userModel.ID,
+		Birthday: userModel.Birthday,
+		Age:      userModel.Age,
+		Name:     userModel.Name,
+	}
+}
+
+func (u *UserService) LoadAllUser() []model.UserModel {
+	user := model.UserModel{
+	}
+	return user.LoadAllUsers()
+}
