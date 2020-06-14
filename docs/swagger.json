@@ -1,0 +1,180 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Gin swagger 示例项目",
+        "title": "Gin swagger",
+        "contact": {
+            "url": "https://youngxhui.top",
+            "email": "youngxhui@g mail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "paths": {
+        "/v1/users": {
+            "get": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "tags": [
+                    "用户模块"
+                ],
+                "summary": "获取所有用户",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.UpdateUserResp"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "tags": [
+                    "用户模块"
+                ],
+                "summary": "创建用户",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name",
+                        "name": "name",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "age",
+                        "name": "age",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.UserModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/users/{id}": {
+            "get": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "tags": [
+                    "用户模块"
+                ],
+                "summary": "通过用户 id 获取用户信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.UserModel"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "tags": [
+                    "用户模块"
+                ],
+                "summary": "更新用户",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "age",
+                        "name": "age",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "name",
+                        "name": "name",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateUserResp"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "model.UpdateUserResp": {
+            "type": "object",
+            "properties": {
+                "age": {
+                    "description": "年龄",
+                    "type": "integer"
+                },
+                "birthday": {
+                    "description": "生日",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "Id",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "姓名",
+                    "type": "string"
+                }
+            }
+        },
+        "model.UserModel": {
+            "type": "object",
+            "properties": {
+                "age": {
+                    "description": "年龄",
+                    "type": "integer"
+                },
+                "birthday": {
+                    "description": "生日",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "姓名",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

@@ -28,3 +28,8 @@ doc/paramters
 ```
 
 ```
+### gin 使用集成swagger
+```
+http://localhost:8080/swagger/index.html
+
+```
