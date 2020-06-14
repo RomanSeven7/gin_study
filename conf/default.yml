@@ -1,1 +1,21 @@
 num: 700
+mysql:
+  uri: root:Hua_xxx_111@tcp(10.48.1.125:3306)/gin_study?parseTime=true
+  # 设置连接池中的最大闲置连接数
+  maxOpenConns: 20
+  # 设置连接池中的最大闲置连接数
+  maxIdleConns: 2
+
+log:
+redis:
+  mode: cluster
+  conn: 10.49.1.106:6379
+  password:
+  conn_timeout: 2000
+  so_timeout: 4000
+  min_idle_conns: 10
+  max_retries: 3
+  sentinel:
+    master:
+
+

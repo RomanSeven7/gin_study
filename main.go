@@ -1,18 +1,22 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
-	"github.com/gobuffalo/packr/v2"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 	"mfx/gin_study/app/order"
 	"mfx/gin_study/app/user"
+<<<<<<< HEAD
 	_ "mfx/gin_study/docs"
+=======
+	"mfx/gin_study/conf"
+	"mfx/gin_study/g_rediscache"
+	"mfx/gin_study/model"
+>>>>>>> master
 	"mfx/gin_study/routers"
-	"os"
 )
 
+<<<<<<< HEAD
 func initConfig() (err error) {
 	box := packr.New("config", "./conf")
 	configType := "yml"
@@ -43,6 +47,9 @@ func initConfig() (err error) {
 // @title Gin swagger
 // @version 1.0
 // @description Gin swagger 示例项目
+=======
+
+>>>>>>> master
 
 // @contact.name
 // @contact.url https://youngxhui.top
@@ -55,7 +62,12 @@ func initConfig() (err error) {
 func main() {
 	pflag.Parse()
 	_ = viper.BindPFlags(pflag.CommandLine)
+<<<<<<< HEAD
 	err := initConfig()
+=======
+
+	err := conf.InitConfig()
+>>>>>>> master
 	if err != nil {
 		panic(err)
 	}
@@ -63,7 +75,12 @@ func main() {
 	routers.Include(order.Routers, user.Routers)
 	// 初始化路由
 	r := routers.Init()
-	if err := r.Run(); err != nil {
-		fmt.Println("startup service failed, err:%v\n", err)
+	defer model.Db.Close()
+	// 初始化gorm
+	model.Init()
+	// 初始化redis
+	g_rediscache.Init()
+	if err := r.Run(":8089"); err != nil {
+		fmt.Printf("startup service failed, err:%v\n\n", err)
 	}
 }

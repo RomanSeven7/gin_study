@@ -14,3 +14,17 @@ doc/router
 ```
 doc/config
 ```
+
+### gin 读取请求参数
+```
+doc/paramters
+```
+### gin 连接数据库
+```
+
+```
+
+### gin 连接redis
+```
+
+```
