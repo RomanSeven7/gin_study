@@ -34,5 +34,4 @@ func main() {
 	if err := r.Run(":8089"); err != nil {
 		fmt.Printf("startup service failed, err:%v\n\n", err)
 	}
-
 }
