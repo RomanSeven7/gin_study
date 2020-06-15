@@ -97,3 +97,18 @@ func LoadAllUsers(c *gin.Context) {
 	basicHandle := app.BasicController{Ctx: c}
 	basicHandle.Ok(userService.LoadAllUser())
 }
+
+// @Summary 删除标识为id的用户信息
+// @Tags 用户模块
+// @version 1.0
+// @Accept application/x-www-form-urlencoded
+// @Param id path int true "id"
+// @Success 200 object model.UserModel 成功后返回值
+// @Router  /v1/users/{id} [delete]
+func DeleteUser(c *gin.Context) {
+	basicHandle := app.BasicController{Ctx: c}
+	id := c.Param("id")
+
+	intId, _ := strconv.Atoi(id)
+	basicHandle.Ok(userService.DeleteUser(intId))
+}

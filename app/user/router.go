@@ -15,6 +15,7 @@ func Routers(e *gin.Engine) {
 		user.GET("/:id", app.Wrapper(LoadUserById))
 		user.PUT("/:id", app.Wrapper(UpdateUser))
 		user.GET("/", app.Wrapper(LoadAllUsers))
+		user.DELETE("/:id", app.Wrapper(DeleteUser))
 
 	}
 }

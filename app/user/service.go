@@ -44,7 +44,7 @@ func (u *UserService) LoadById(uid int64) model.UserModel {
 func (u *UserService) UpdateUserById(req model.UpdateUserReq) model.UpdateUserResp {
 
 	userModel := req.UpdateById()
-	_, _ = g_rediscache.RedisClient.Del(fmt.Sprintf("load_by_userId:%d", userModel.ID)).Result()
+	refreshUserRDB(userModel.ID)
 	return model.UpdateUserResp{
 		ID:       userModel.ID,
 		Birthday: userModel.Birthday,
@@ -57,4 +57,16 @@ func (u *UserService) LoadAllUser() []model.UserModel {
 	user := model.UserModel{
 	}
 	return user.LoadAllUsers()
+}
+
+func (u *UserService) DeleteUser(uid int) interface{} {
+	user := model.UserModel{}
+	user.ID = uint(uid)
+	user.DeleteById()
+	refreshUserRDB(user.ID)
+	return nil
+}
+
+func refreshUserRDB(userId uint){
+	_, _ = g_rediscache.RedisClient.Del(fmt.Sprintf("load_by_userId:%d", userId)).Result()
 }
