@@ -75,6 +75,23 @@ paths:
       tags:
       - 用户模块
   /v1/users/{id}:
+    delete:
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.UserModel'
+      summary: 删除标识为id的用户信息
+      tags:
+      - 用户模块
     get:
       consumes:
       - application/x-www-form-urlencoded

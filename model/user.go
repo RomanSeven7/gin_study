@@ -67,3 +67,11 @@ func (user *UserModel) LoadAllUsers() []UserModel {
 	Db.Find(&userModelList)
 	return userModelList
 }
+
+// 根据id 删除用户信息
+func (user *UserModel)DeleteById() {
+	// 删除现有记录
+	value:=Db.Delete(&user).Value
+	//// DELETE from user where id=10;
+	logrus.Debug(value)
+}
