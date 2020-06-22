@@ -1,6 +1,6 @@
 # **URL及参数设计规范**
 
-##1.uri设计规范
+## 1.uri设计规范
 
 1) uri末尾不需要出现斜杠/
 2) 在uri中使用斜杠/是表达层级关系的。
@@ -11,7 +11,7 @@
 6) 在uri中不允许出现文件扩展名. 比如接口为 /xxx/api, 不要写成 /xxx/api.php 这样的是不合法的。
 7) 在uri中使用复数形式。
 
-具体可以看：（https://blog.restcase.com/7-rules-for-rest-api-uri-design/）
+具体可以看：https://blog.restcase.com/7-rules-for-rest-api-uri-design/
 
 在RESTful架构中，每个uri代表一种资源，因此uri设计中不能使用动词，只能使用名词，并且名词中也应该尽量使用复数形式。使用者应该使用相应的http动词 GET、POST、PUT、PATCH、DELETE等操作这些资源即可。
 
@@ -48,8 +48,8 @@ DELETE(DELETE): 删除; 从服务器上删除资源。
 参数推荐采用下划线命名的方式。比如如下demo:
 
 ```
-http://xxx.com/api/today_login // 获取今天登录的用户。
-http://xxx.com/api/today_login&sort=login_desc // 获取今天登录的用户、登录时间降序排序。
+http://xxx.com/api/today-login // 获取今天登录的用户。
+http://xxx.com/api/today-login&sort=login_desc // 获取今天登录的用户、登录时间降序排序。
 ```
 
 ## 4.http状态码相关的

@@ -3,7 +3,7 @@
 
 
 
-## 从urlpath中获取
+## [1].从uri-path中获取
 
 
 
@@ -18,13 +18,13 @@ curl -X GET \
 
 ```
 
-获取urlpath参数
+获取uri-path参数
 
 ``` go
 id:=c.Param("id")
 ```
 
-##  从paramters中获取
+##  [2].从parameters中获取
 
 请求：
 
@@ -35,16 +35,15 @@ curl -X GET \
   -H 'cache-control: no-cache'  
 ```
 
-获取paramters参数
+获取parameters参数
 
 ```go
-firstName := c.DefaultQuery("firstname", "Guest")  //如果读取不到firstname会给赋值一个默认的值 Guest
-lastname := c.Query("lastname")// 读取 lastname的值，如果读取不到返回空字符串
+firstName := c.DefaultQuery("firstName", "Guest")  //如果读取不到firstName会给赋值一个默认的值 Guest
+lastName := c.Query("lastName")// 读取 lastName的值，如果读取不到返回空字符串
 // c.Query("lastname") 等价于 c.Request.URL.Query().Get("lastname")
 ```
 
-##从Multipart/Urlencoded Form中获取
-
+##  [3].从Multipart/Urlencoded Form中获取
 
 
 请求:
@@ -65,7 +64,7 @@ message := c.PostForm("message") // 读取 message的值，如果读取不到返
 nick := c.DefaultPostForm("nick", "anonymous") // 读取nick的值，如果读取不到会给nick赋默认值anonymous
 ```
 
-## 从paramter/form 读取map或者array
+## [4].从paramter/form 读取map或者array
 
 请求:
 
@@ -80,7 +79,7 @@ curl -X PUT \
 
 
 
-从paramter获取map,array,从form获取map array
+从paramter获取map,array,从application/x-www-form-urlencoded body中获取map array
 
 ```go
 idMap := c.QueryMap("idMap") //从paramter获取map
