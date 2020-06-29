@@ -64,7 +64,7 @@ message := c.PostForm("message") // 读取 message的值，如果读取不到返
 nick := c.DefaultPostForm("nick", "anonymous") // 读取nick的值，如果读取不到会给nick赋默认值anonymous
 ```
 
-## [4].从paramter/form 读取map或者array
+## [4].从parameter/form 读取map或者array
 
 请求:
 
@@ -79,7 +79,7 @@ curl -X PUT \
 
 
 
-从paramter获取map,array,从application/x-www-form-urlencoded body中获取map array
+从parameter获取map,array,从application/x-www-form-urlencoded body中获取map array
 
 ```go
 idMap := c.QueryMap("idMap") //从paramter获取map
