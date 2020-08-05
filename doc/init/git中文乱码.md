@@ -9,6 +9,7 @@ git config --global core.quotepath false
 先看下 LANG 环境变量是否为统一字符编码：
 ```shell script
 $ echo $LANG;
+$ locale 
 ```
 输出结果为空
 执行export LANG="zh_CN.UTF-8"命令，问题能否解决？
